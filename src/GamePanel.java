@@ -1,4 +1,3 @@
-package PongProject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,11 +44,14 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setBall(){
-
+//        random = new Random();
+        ball = new Ball((WINDOW_WIDTH/2) - (BALL_DIAMETER/2), (WINDOW_HEIGHT/2) - (BALL_DIAMETER/2), BALL_DIAMETER, BALL_DIAMETER);
     }
 
     public void setPaddles(){
-        p1 = new Paddle(0, (g))
+        p1 = new Paddle(0, (WINDOW_HEIGHT /2) - (PADDLE_HEIGHT / 2), PADDLE_WIDTH, PADDLE_HEIGHT, 1);
+        p2 = new Paddle(WINDOW_WIDTH - PADDLE_WIDTH, (WINDOW_HEIGHT /2) - (PADDLE_HEIGHT / 2), PADDLE_WIDTH, PADDLE_HEIGHT, 2);
+
 
     }
 
@@ -60,15 +62,68 @@ public class GamePanel extends JPanel implements Runnable {
         g.drawImage(img, 0, 0, this);
     }
 
-    public void draw(Graphics graphics){
-
+    public void draw(Graphics g){
+        p1.draw(g);
+        p2.draw(g);
+        ball.draw(g);
+        score.draw(g);
     }
 
     public void move(){
-
+        p1.move();
+        p2.move();;
+        ball.move();
     }
 
     public void checkCollations(){
+        //paddle collision
+        if(p1.y <= 0 ){
+            p1.y = 0;
+        }
+        if(p1.y >= (WINDOW_HEIGHT - PADDLE_HEIGHT)){
+            p1.y = WINDOW_HEIGHT - PADDLE_HEIGHT;
+        }
+        if(p2.y <= 0 ){
+            p2.y = 0;
+        }
+        if(p2.y >= (WINDOW_HEIGHT - PADDLE_HEIGHT)){
+            p2.y = WINDOW_HEIGHT - PADDLE_HEIGHT;
+        }
+
+        //ball bounce
+        if (ball.y <= 0) {
+            ball.setY(-ball.yVelocity);
+        }
+        if (ball.y >= WINDOW_HEIGHT - BALL_DIAMETER){
+            ball.setY(-ball.yVelocity);
+        }
+
+        //ball bounce off paddles
+
+        //p1
+        if(ball.intersects(p1)){
+            ball.xVelocity = Math.abs(ball.xVelocity);
+            ball.setX(ball.xVelocity);
+        }
+        //p2
+        if(ball.intersects(p2)){
+            ball.xVelocity = Math.abs(ball.xVelocity);
+            ball.setY(ball.xVelocity);
+        }
+
+        //scoring
+        if(ball.x <= 0) {
+            score.p2++;
+            setPaddles();
+            setBall();
+            System.out.println("TEST p2" + score.p2);
+        }
+        if(ball.x >= WINDOW_WIDTH-BALL_DIAMETER) {
+            score.p1++;
+            setPaddles();
+            setBall();
+            System.out.println("TEST P1 " + score.p1);
+        }
 
     }
 
@@ -107,11 +162,14 @@ public class GamePanel extends JPanel implements Runnable {
     public class ActionListener extends KeyAdapter{
 
         public void keyPressed(KeyEvent e){
+            p1.keyPressed(e);
+            p2.keyPressed(e);
 
         }
 
         public void keyReleased(KeyEvent e){
-
+            p1.keyReleased(e);
+            p2.keyReleased(e);
         }
     }
 
