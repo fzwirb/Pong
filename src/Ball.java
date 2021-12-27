@@ -15,15 +15,17 @@ public class Ball extends Rectangle{
         super(xPos, yPos, ballWidth, ballHeight);
         random = new Random();
         int randX = random.nextInt(2);
-        if(randX == 0){
+        if(randX == 0) {
             randX--;
-            setX(randX * speed);
         }
+            randX = randX * speed;
+            setX(randX);
         int randY = random.nextInt(2);
-        if(randY == 0){
+        if(randY == 0) {
             randY--;
-            setY(randY * speed);
         }
+            randY = randY * speed;
+            setY(randY);
     }
 
     public void setX(int randDir){

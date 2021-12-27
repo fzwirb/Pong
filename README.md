@@ -10,4 +10,6 @@ Personal project to complete over winter break. Completed using Java.awt
 
 12/24 - created remote repo and synced local to remote
 
-12/25 -
+12/25 - broke but almost there
+
+12/26 - basic version of the game working. More to add including start and end screen and more objects to enhance the game

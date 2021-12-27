@@ -108,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
         //p2
         if(ball.intersects(p2)){
             ball.xVelocity = Math.abs(ball.xVelocity);
-            ball.setY(ball.xVelocity);
+            ball.setX(-ball.xVelocity);
         }
 
         //scoring
@@ -116,13 +116,13 @@ public class GamePanel extends JPanel implements Runnable {
             score.p2++;
             setPaddles();
             setBall();
-            System.out.println("TEST p2" + score.p2);
+            System.out.println("Player 2 scored! score: " + score.p2);
         }
         if(ball.x >= WINDOW_WIDTH-BALL_DIAMETER) {
             score.p1++;
             setPaddles();
             setBall();
-            System.out.println("TEST P1 " + score.p1);
+            System.out.println("Player 1 scored! score: " + score.p1);
         }
 
     }
