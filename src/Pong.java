@@ -5,6 +5,11 @@ import javax.swing.*;
 
 public class Pong {
 
+    /**
+     * run game from here
+     * @param args
+     */
+
     public static void main(String[] args) {
         WindowFrame frame = new WindowFrame();
     }
