@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     Paddle p1;
     Paddle p2;
     Ball ball;
+//    BoxBarrier box;
     Score score;
 
     GamePanel(){
@@ -41,6 +42,9 @@ public class GamePanel extends JPanel implements Runnable {
         //create and start the game thread
         gt = new Thread(this);
         gt.start();
+    }
+    public void setBoxes(){
+//        box = new BoxBarrier(300, 300);
     }
 
     public void setBall(){
