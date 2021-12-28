@@ -1,5 +1,5 @@
 # Pong
-Personal project to complete over winter break. Completed using Java.awt
+Personal project to complete over winter break. Completed using javax.swing
 
 
 12/15 - start date
