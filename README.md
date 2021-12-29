@@ -1,4 +1,4 @@
-# Pong
+# Main
 Personal project to complete over winter break. Completed using javax.swing
 
 

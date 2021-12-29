@@ -3,12 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Random;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
-import javax.swing.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -25,7 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
     Paddle p1;
     Paddle p2;
     Ball ball;
-//    BoxBarrier box;
+    BoxBarrier box;
+    BoxBarrier box1;
     Score score;
 
     GamePanel(){
@@ -34,6 +30,7 @@ public class GamePanel extends JPanel implements Runnable {
          */
         setPaddles();
         setBall();
+        setBoxes();
         score = new Score(WINDOW_WIDTH, WINDOW_HEIGHT);
         this.setFocusable(true);
         this.addKeyListener(new ActionListener());
@@ -44,7 +41,8 @@ public class GamePanel extends JPanel implements Runnable {
         gt.start();
     }
     public void setBoxes(){
-//        box = new BoxBarrier(300, 300);
+        box = new BoxBarrier(250, 200, 100, 100);
+//        box = new BoxBarrier(850, 100, 100, 100);
     }
 
     public void setBall(){
@@ -71,6 +69,7 @@ public class GamePanel extends JPanel implements Runnable {
         p2.draw(g);
         ball.draw(g);
         score.draw(g);
+        box.draw(g);
     }
 
     public void move(){
@@ -79,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
         ball.move();
     }
 
-    public void checkCollations(){
+    public void checkCollisions(){
         //paddle collision
         if(p1.y <= 0 ){
             p1.y = 0;
@@ -129,6 +128,34 @@ public class GamePanel extends JPanel implements Runnable {
             System.out.println("Player 1 scored! score: " + score.p1);
         }
 
+        //box collision
+        //x1, y1, x2, y2
+
+        //bottom
+        if(ball.intersectsLine(box.getMinX(), box.getMaxY() - (BALL_DIAMETER/2), box.getMaxX(), box.getMaxY() + (BALL_DIAMETER/2))){
+            ball.setY(-ball.yVelocity);
+            System.out.println("HIT BOTTOM");
+        }
+        //top
+        if(ball.intersectsLine(box.getMinX(), box.getMinY() + (BALL_DIAMETER/2), box.getMaxX(), box.getMinY() + (BALL_DIAMETER/2))){
+            ball.setY(-ball.yVelocity);
+            System.out.println("HIT TOP");
+
+        }
+        //left
+        if(ball.intersectsLine(box.getMinX(), box.getMinY(), box.getMinX(), box.getMaxY())){
+            ball.setX(-ball.xVelocity);
+            System.out.println("HIT LEFT");
+
+        }
+        //right
+        if(ball.intersectsLine(box.getMaxX(), box.getMinY(), box.getMaxX(), box.getMaxY())){
+            ball.setX(-ball.xVelocity);
+            System.out.println("HIT right");
+
+        }
+
+
     }
 
     public void run(){
@@ -145,7 +172,7 @@ public class GamePanel extends JPanel implements Runnable {
             lastTime = now;
             if(delta >= 1){
                 move();
-                checkCollations();
+                checkCollisions();
                 repaint();
                 delta--;
 
