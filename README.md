@@ -1,5 +1,5 @@
 # Main
-Personal project to complete over winter break. Completed using javax.swing
+Pong clone in made in Java using javax.swing
 
 
 12/15 - start date
@@ -13,3 +13,5 @@ Personal project to complete over winter break. Completed using javax.swing
 12/25 - broke but almost there
 
 12/26 - basic version of the game working. More to add including start and end screen and more objects to enhance the game
+
+12/28 - added a box with collision detection
